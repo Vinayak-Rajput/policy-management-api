@@ -27,7 +27,7 @@ public class PolicyController {
 
     // GET Endpoint to fetch a specific policy
     @GetMapping("/{id}")
-    public ResponseEntity<Policy> getPolicyById(@PathVariable Long id) {
+    public ResponseEntity<Policy> getPolicyById(@PathVariable int id) {
         Policy policy = policyService.getPolicyById(id);
         return new ResponseEntity<>(policy, HttpStatus.OK);
     }

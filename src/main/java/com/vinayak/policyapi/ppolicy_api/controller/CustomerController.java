@@ -36,7 +36,7 @@ public class CustomerController {
 
     // 3. GET Endpoint to fetch a specific customer by ID
     @GetMapping("/{id}")
-    public ResponseEntity<Customer> getCustomerById(@PathVariable Long id) {
+    public ResponseEntity<Customer> getCustomerById(@PathVariable int id) {
         Customer customer = customerService.getCustomerById(id);
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
