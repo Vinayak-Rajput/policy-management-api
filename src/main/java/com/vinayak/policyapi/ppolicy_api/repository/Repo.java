@@ -20,7 +20,7 @@ public abstract class Repo<T> {
         return new ArrayList<>(storage.values());
     }
 
-    public Optional<T> findById(Long id) {
+    public Optional<T> findById(int id) {
         return Optional.ofNullable(storage.get(id));
     }
 

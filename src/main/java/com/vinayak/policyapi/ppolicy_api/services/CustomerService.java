@@ -31,7 +31,7 @@ public class CustomerService {
         return customerRepository.save(newCustomer);
     }
 
-    public Customer getCustomerById(Long id) {
+    public Customer getCustomerById(int id) {
         return customerRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Customer not found with ID: " + id));
     }

@@ -37,7 +37,7 @@ public class PolicyService {
         return policyRepository.findAll();
     }
 
-    public Policy getPolicyById(Long id) {
+    public Policy getPolicyById(int id) {
         return policyRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Policy not found with ID: " + id));
     }
