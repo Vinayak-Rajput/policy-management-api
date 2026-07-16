@@ -1,0 +1,14 @@
+package com.vinayak.policyapi.ppolicy_api;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class PpolicyApiApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(PpolicyApiApplication.class, args);
+		System.out.println("Hello");
+	}
+
+}
