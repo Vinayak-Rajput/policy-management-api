@@ -4,7 +4,7 @@ public class Proposal {
     
     private int proposalId;
     private int customerId;
-    private String policyId;
+    private int policyId;
     private int policyTerm;
     private double sumAssured;
     private double annualPremium;
@@ -34,7 +34,7 @@ public class Proposal {
         return policyId;
     }
 
-    public void setPolicyId(String policyId) {
+    public void setPolicyId(int policyId) {
         this.policyId = policyId;
     }
 
