@@ -30,7 +30,7 @@ public class Proposal {
         this.customerId = customerId;
     }
 
-    public String getPolicyId() {
+    public int getPolicyId() {
         return policyId;
     }
 
