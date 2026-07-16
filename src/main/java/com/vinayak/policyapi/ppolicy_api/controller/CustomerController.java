@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/customers") // This sets the base URL for this entire file
+@RequestMapping("/customers")
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -21,11 +21,10 @@ public class CustomerController {
     }
 
     // 1. POST Endpoint to create a customer
-    // The @Valid tag is what actually triggers your DTO rules (like @Min and @NotNull)!
     @PostMapping
     public ResponseEntity<Customer> createCustomer(@Valid @RequestBody CustomerRequestDTO requestDTO) {
         Customer createdCustomer = customerService.createCustomer(requestDTO);
-        return new ResponseEntity<>(createdCustomer, HttpStatus.CREATED); // Returns a 201 Created status
+        return new ResponseEntity<>(createdCustomer, HttpStatus.CREATED);
     }
 
     // 2. GET Endpoint to fetch all customers
