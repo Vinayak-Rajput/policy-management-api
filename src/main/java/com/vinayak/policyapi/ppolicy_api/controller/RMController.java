@@ -15,12 +15,12 @@ public class RMController {
 
     @GetMapping("/{category}")
     public ResponseEntity<?> getReferenceData(@PathVariable String category) {
-        if (category.equalsIgnoreCase("policy-terms")) {
+        if (category.equalsIgnoreCase("pterms")) {
             return new ResponseEntity<>(List.of(10, 15, 20, 25, 30), HttpStatus.OK);
-        } else if (category.equalsIgnoreCase("payment-frequencies")) {
+        } else if (category.equalsIgnoreCase("pfreqs")) {
             return new ResponseEntity<>(List.of("MONTHLY", "QUARTERLY", "HALF_YEARLY", "YEARLY"), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Invalid category. Use 'policy-terms' or 'payment-frequencies'", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Invalid. Use 'pterms' or 'pfreqs'", HttpStatus.BAD_REQUEST);
         }
     }
 }
