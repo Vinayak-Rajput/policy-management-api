@@ -21,15 +21,15 @@ public class PolicyService {
         Policy termLife = new Policy();
         termLife.setPolicyName("Secure Term Life");
         termLife.setPolicyType("TERM");
-        termLife.setSumAssured(100000.00);    // Minimum 1 Lakh
-        termLife.setMaxSumAssured(50000000.00); // Maximum 5 Crore
+        termLife.setSumAssured(100000.00);   
+        termLife.setMaxSumAssured(50000000.00); 
         policyRepository.save(termLife);
 
         Policy health = new Policy();
         health.setPolicyName("Family Health Plus");
         health.setPolicyType("HEALTH");
-        health.setSumAssured(500000.00);      // Minimum 5 Lakh
-        health.setMaxSumAssured(2500000.00);  // Maximum 25 Lakh
+        health.setSumAssured(500000.00);     
+        health.setMaxSumAssured(2500000.00);
         policyRepository.save(health);
     }
 

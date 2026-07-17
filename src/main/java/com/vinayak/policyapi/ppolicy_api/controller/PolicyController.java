@@ -18,14 +18,12 @@ public class PolicyController {
         this.policyService = policyService;
     }
 
-    // GET Endpoint to see the whole catalog
     @GetMapping
     public ResponseEntity<List<Policy>> getAllPolicies() {
         List<Policy> policies = policyService.getAllPolicies();
         return new ResponseEntity<>(policies, HttpStatus.OK);
     }
 
-    // GET Endpoint to fetch a specific policy
     @GetMapping("/{id}")
     public ResponseEntity<Policy> getPolicyById(@PathVariable int id) {
         Policy policy = policyService.getPolicyById(id);

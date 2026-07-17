@@ -20,28 +20,24 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    // 1. POST Endpoint to create a customer
     @PostMapping
     public ResponseEntity<Customer> createCustomer(@Valid @RequestBody CustomerRequestDTO requestDTO) {
         Customer createdCustomer = customerService.createCustomer(requestDTO);
         return new ResponseEntity<>(createdCustomer, HttpStatus.CREATED);
     }
 
-    // 2. GET Endpoint to fetch all customers
     @GetMapping
     public ResponseEntity<List<Customer>> getAllCustomers() {
         List<Customer> customers = customerService.getAllCustomers();
         return new ResponseEntity<>(customers, HttpStatus.OK);
     }
 
-    // 3. GET Endpoint to fetch a specific customer by ID
     @GetMapping("/{id}")
     public ResponseEntity<Customer> getCustomerById(@PathVariable int id) {
         Customer customer = customerService.getCustomerById(id);
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
-    // 4. PUT Endpoint to update an existing customer
     @PutMapping("/{id}")
     public ResponseEntity<Customer> updateCustomer(@PathVariable int id, @Valid @RequestBody CustomerRequestDTO requestDTO) {
         Customer updatedCustomer = customerService.updateCustomer(id, requestDTO);
