@@ -20,21 +20,24 @@ public class ProposalController {
         this.proposalService = proposalService;
     }
 
-    // POST Endpoint to submit a new proposal
     @PostMapping
-    public ResponseEntity<Proposal> submitProposal(@Valid @RequestBody ProposalRequestDTO requestDTO) {
-        Proposal createdProposal = proposalService.submitProposal(requestDTO);
+    public ResponseEntity<Proposal> createProposal(@Valid @RequestBody ProposalRequestDTO requestDTO) {
+        Proposal createdProposal = proposalService.createProposal(requestDTO);
         return new ResponseEntity<>(createdProposal, HttpStatus.CREATED);
     }
 
-    // GET Endpoint to fetch all proposals
+    @PostMapping("/{id}/submit")
+    public ResponseEntity<Proposal> submitProposal(@PathVariable int id) {
+        Proposal submittedProposal = proposalService.submitProposal(id);
+        return new ResponseEntity<>(submittedProposal, HttpStatus.OK);
+    }
+
     @GetMapping
     public ResponseEntity<List<Proposal>> getAllProposals() {
         List<Proposal> proposals = proposalService.getAllProposals();
         return new ResponseEntity<>(proposals, HttpStatus.OK);
     }
 
-    // GET Endpoint to fetch a specific proposal by ID
     @GetMapping("/{id}")
     public ResponseEntity<Proposal> getProposalById(@PathVariable int id) {
         Proposal proposal = proposalService.getProposalById(id);

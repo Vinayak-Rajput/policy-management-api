@@ -19,7 +19,7 @@ public class ProposalService {
     private final ProposalRepo proposalRepository;
     private final CustomerRepo customerRepository;
     private final PolicyRepo policyRepository;
-    private final AuditService auditService; 
+    private final AuditService auditService;
 
     public ProposalService(ProposalRepo proposalRepository, 
                            CustomerRepo customerRepository, 
@@ -41,13 +41,14 @@ public class ProposalService {
             throw new IllegalArgumentException("Business Rule Violation: Sum Assured is outside limits");
         }
 
-        if (dto.getAnnualPremium() > 50000 && customer.getPanNumber() == null){
-            throw new IllegalArgumentException("Business Rule Violation: PAN number is mandated; annual premium > 50,000");
+        if (dto.getAnnualPremium() > 50000 && (customer.getPanNumber() == null || customer.getPanNumber().trim().isEmpty())){
+            throw new IllegalArgumentException("PAN is mandatory because the Annual Premium exceeds Rs. 50,000.");
         }
 
         List<Integer> policyTerms = new ArrayList<>(List.of(10,15,20,25,30));
+        
         if(!policyTerms.contains(dto.getPolicyTerm())){
-            throw new IllegalArgumentException("Business Rule Violation: Invalid policy term.");
+            throw new IllegalArgumentException("Policy Term must be 10, 15, 20, 25, or 30 years.");
         }
 
         Proposal proposal = new Proposal();
@@ -60,33 +61,23 @@ public class ProposalService {
         proposal.setStatus("DRAFT");
         
         return proposalRepository.save(proposal);
-
     }
 
-    public Proposal submitProposal(ProposalRequestDTO dto) {
+    public Proposal submitProposal(int proposalId) {
+        Proposal proposal = proposalRepository.findById(proposalId)
+                .orElseThrow(() -> new IllegalArgumentException("Proposal not found with ID: " + proposalId));
 
-        customerRepository.findById(dto.getCustomerId())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid Customer ID."));
-
-        Policy policy = policyRepository.findById(dto.getOfferedPolicyId())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid Policy ID."));
-
-        if (dto.getSumAssured() < policy.getSumAssured() || dto.getSumAssured() > policy.getMaxSumAssured()) {
-            throw new IllegalArgumentException("Business Rule Violation: Sum Assured is outside limits");
+        if (!proposal.getStatus().equals("DRAFT")) {
+            throw new IllegalArgumentException("Only DRAFT proposals can be submitted.");
         }
 
-        Proposal proposal = new Proposal();
-        proposal.setCustomerId(dto.getCustomerId());
-        proposal.setPolicyId(dto.getOfferedPolicyId()); 
-        proposal.setPolicyTerm(dto.getPolicyTerm());
-        proposal.setSumAssured(dto.getSumAssured());
-        proposal.setAnnualPremium(dto.getAnnualPremium());
-        
         proposal.setStatus("SUBMITTED");
         proposal.setPolicyNumber("POL-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase());
         
-        auditService.logAction("Proposal submitted for Customer ID: " + dto.getCustomerId() + ", Policy ID: " + dto.getOfferedPolicyId());
-        return proposalRepository.save(proposal);
+        Proposal savedProposal = proposalRepository.save(proposal);
+
+        auditService.logAction("Proposal Submitted: " + savedProposal.getPolicyNumber() + " for Customer ID: " + savedProposal.getCustomerId());
+        return savedProposal;
     }
 
     public List<Proposal> getAllProposals() {
