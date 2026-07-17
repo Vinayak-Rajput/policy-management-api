@@ -1,4 +1,4 @@
-# Architectural & Design Decisions
+# Project Architecture
 ## 1. Layered Architecture (Separation of Concerns)
 The application follows 3-tier Spring Boot architecture:
 * **Controllers:** Responsible only for handling HTTP traffic, reading bodies, and returning HTTP responses.

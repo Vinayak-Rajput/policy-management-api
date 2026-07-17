@@ -25,10 +25,12 @@ Built with Spring Boot for managing both customers and policy proposals. It has 
 
 ## API List
 
-1. *Customer Management*
+### *Customer Management*
 
-Create a Customer: POST /customers
-Request Body:
+*Create a Customer:* 
+POST /customers
+
+*Request Body:*
 
 JSON
 {
@@ -38,14 +40,16 @@ JSON
     "nomineeName": "John Doe"
 }
 
-Success Response (201 Created): Returns the customer object with a generated customerId.
+*Success Response (201 Created):*
+Returns the customer object with a generated customerId.
 
-Update a Customer: PUT /customers/{id}
+*Update a Customer:* PUT /customers/{id}
+
 Request Body: Same as POST, containing updated fields.
 
 Success Response (200 OK): Returns the updated customer object.
 
-2. *Proposal Management*
+### *Proposal Management*
 
 Step 1: Create a Draft Proposal: POST /proposals
 Request Body:
@@ -59,6 +63,7 @@ JSON
     "annualPremium": 12000,
     "paymentFrequency": "MONTHLY"
 }
+
 Success Response (201 Created):
 
 JSON
@@ -71,25 +76,28 @@ JSON
 }
 
 Step 2: Submit the Proposal: POST /proposals/{id}/submit
+
 Request Body: None
 
 Success Response (200 OK): Updates status to SUBMITTED and generates a policyNumber.
 
-3. *Customer Management*
+### *Customer Management*
 
 GET /customers: Fetch all customers.
+
 GET /customers/{id}: Fetch a specific customer.
 
-4. *Proposals Management*
+### *Proposals Management*
 
 GET /proposals: Fetch all proposals.
+
 GET /proposals/{id}: Fetch a specific proposal.
 
-5. *ReferenceMaster Management*
+### *ReferenceMaster Management*
 
 GET /reference-master/policy-terms: Returns static valid terms [10, 15, 20, 25, 30].
 
-6. *Audit Management*
+### *Audit Management*
 
 GET /audits: Returns a list of strings confirming all successful proposal submissions.
 
@@ -114,20 +122,18 @@ Screenshots of various Requests/Responses using Postman
 ![](images/8.png)
 
 ## Test Execution Steps
-1. *Automated JUnit 5 Tests*
+### *Automated JUnit 5 Tests*
 
 To run the automated test suite, execute the following command in your terminal:
     .\mvnw test
 
 Expected Output: BUILD SUCCESS indicating all assertions and business rule validations passed.
 
-2. *Manual API Testing (Postman)*
+### *Manual API Testing (Postman)*
 
 * Open the project in VS Code.
 * Install the Postman Extension.
-
-The extension will automatically read the .postman directory included in the root of this project.
-
+* The extension will automatically read the .postman directory included in the root of this project.
 * Use the pre-configured requests to test the Create, Read, Update, and Submit flows end-to-end.
 
 *Developed By Vinayak Rajput*

@@ -72,6 +72,7 @@ public class ProposalService {
         }
 
         proposal.setStatus("SUBMITTED");
+
         proposal.setPolicyNumber("POL-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase());
         
         Proposal savedProposal = proposalRepository.save(proposal);
