@@ -8,7 +8,6 @@ public class PpolicyApiApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PpolicyApiApplication.class, args);
-		System.out.println("Hello");
 	}
 
 }
