@@ -40,4 +40,11 @@ public class CustomerController {
         Customer customer = customerService.getCustomerById(id);
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
+
+    // 4. PUT Endpoint to update an existing customer
+    @PutMapping("/{id}")
+    public ResponseEntity<Customer> updateCustomer(@PathVariable int id, @Valid @RequestBody CustomerRequestDTO requestDTO) {
+        Customer updatedCustomer = customerService.updateCustomer(id, requestDTO);
+        return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
+    }
 }

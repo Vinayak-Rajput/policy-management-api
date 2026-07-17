@@ -39,4 +39,21 @@ public class CustomerService {
     public List<Customer> getAllCustomers() {
         return customerRepository.findAll();
     }
+
+    public Customer updateCustomer(int id, CustomerRequestDTO dto) {
+        
+        Customer existingCustomer = customerRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Customer not found with ID: " + id));
+
+        if (dto.getName().trim().equalsIgnoreCase(dto.getNomineeName().trim())) {
+            throw new IllegalArgumentException("Business Rule Violation: A customer cannot be their own nominee.");
+        }
+
+        existingCustomer.setCustomerName(dto.getName());
+        existingCustomer.setAge(dto.getAge());
+        existingCustomer.setPanNumber(dto.getPanNumber());
+        existingCustomer.setNomineeName(dto.getNomineeName());
+
+        return customerRepository.save(existingCustomer);
+    }
 }
